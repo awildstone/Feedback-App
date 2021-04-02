@@ -1,0 +1,25 @@
+{% extends 'base.html'  %}
+
+{% block title %} Add new Feedback {% endblock %}
+
+{% block content %}
+
+<h1 class="display-1 text-center">Add new Feedback</h1>
+
+<p>Please enter your feedback subject and content below. All fields are required.</p>
+
+<form method="POST">
+    {{ form.hidden_tag() }}
+    {% for field in form if field.widget.input_type != 'hidden' %}
+    <div class="mb-3">
+      {{ field.label(class_="form-lable") }}
+      {{ field(class_="form-control") }}
+      {% for error in field.errors %}
+      <small class="form-text text-danger">{{ error }}</small>
+      {% endfor %}
+    </div>
+    {% endfor %}
+    <button class="btn btn-success btn-lg" type="submit">Add Feedback</button>
+  </form>
+
+{% endblock %}

@@ -1,0 +1,45 @@
+{% extends 'base.html'  %}
+
+{% block title %} {{user.first_name}} {{user.last_name}} {% endblock %}
+
+{% block content %}
+
+<div class="container text-center">
+    <h1 class="display-3 text-center m-2">{{user.first_name}} {{user.last_name}}</h1>
+
+    <div class="d-flex justify-content-center">
+        <ul class="list-group">
+            <li class="list-group-item">First Name:  {{ user.first_name }}</li>
+            <li class="list-group-item">Last Name:   {{ user.last_name }}</li>
+            <li class="list-group-item">Email:   {{ user.email }}</li>
+            <li class="list-group-item">Username:    {{ user.username }}</li>
+            <li class="list-group-item d-flex justify-content-between">
+                <a class="btn btn-success btn-lg m-2" href="/users/{{user.username}}/feedback/add">New Feedback</a>
+                <form class="form-inline" action="/users/{{user.username}}/delete" method="post">
+                    <button class="btn btn-danger btn-lg m-2" type="submit">Delete User</button>
+                </form>
+            </li>
+        </ul>
+    </div>
+
+    <h2 class="display-5 text-center m-4">{{user.first_name}}'s Feedback</h2>
+
+    <div class="d-flex justify-content-center">
+        {% for post in feedback %}
+            <div class="card m-4" style="width: 300px;">
+                <div class="card-body">
+                    <h5 class="card-title">{{ post.title }}</h5>
+                    <p class="card-text">{{ post.content }}</p>
+                    <div class="col d-flex justify-content-between">
+                        <a class="btn btn-primary m-2" href="/feedback/{{ post.id }}/update">Edit</a>
+                        <form class="form-inline" action="/feedback/{{ post.id }}/delete" method="post">
+                            <button class="btn btn-danger m-2" type="submit">Delete</button>
+                        </form>
+                    </div>
+                </div>  
+            </div>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock %}

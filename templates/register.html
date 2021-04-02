@@ -1,0 +1,25 @@
+{% extends 'base.html'  %}
+
+{% block title %} Register {% endblock %}
+
+{% block content %}
+
+<h1 class="display-1 text-center">Register</h1>
+
+<p>Enter your name, email, username, and passsword below to register. All inputs are required to register.</p>
+
+<form method="POST">
+    {{ form.hidden_tag() }}
+    {% for field in form if field.widget.input_type != 'hidden' %}
+    <div class="mb-3">
+      {{ field.label }}
+      {{ field(class_="form-control") }}
+      {% for error in field.errors %}
+      <small class="form-text text-danger">{{ error }}</small>
+      {% endfor %}
+    </div>
+    {% endfor %}
+    <button class="btn btn-success" type="submit">Register</button>
+  </form>
+
+{% endblock %}
