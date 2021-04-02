@@ -49,6 +49,10 @@ def register():
     """ Show a form to register/create a user.
     Process the registration of a new user. """
 
+    #first check for logged in user
+    if "username" in session:
+        return redirect(f"/users/{session['username']}")
+    
     form = UserForm()
 
     if form.validate_on_submit():
@@ -57,6 +61,7 @@ def register():
         email = form.email.data
         username = form.username.data
         password = form.password.data
+
         new_user = User.register(first_name, last_name, email, username, password)
 
         db.session.add(new_user)
@@ -81,11 +86,15 @@ def register():
 def login():
     """ Show a form to login. Process the user login request. """
 
+    if "username" in session:
+        return redirect(f"/users/{session['username']}")
+
     form = LoginForm()
 
     if form.validate_on_submit():
         username = form.username.data
         password = form.password.data
+
         user = User.authenticate(username, password)
         if user:
             session["username"] = user.username
@@ -93,6 +102,7 @@ def login():
             return redirect(f"/users/{user.username}")
         else:
             form.username.errors = ["Invalid username/password."]
+            return render_template("login.html", form=form)
 
     return render_template("login.html", form=form)
 
