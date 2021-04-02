@@ -24,10 +24,3 @@ class FeedbackForm(FlaskForm):
 
     title = StringField("Title", validators=[InputRequired()])
     content = TextAreaField("Content", validators=[InputRequired()])
-
-
-# class EditFeedback(FlaskForm):
-#     """ Form to edit User Feedbck. """
-
-#     title = StringField("Title", validators=[InputRequired()])
-#     content = StringField("Title", validators=[InputRequired()])

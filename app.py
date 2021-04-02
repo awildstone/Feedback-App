@@ -33,14 +33,16 @@ def page_not_found(e):
 
 @app.errorhandler(403)
 def page_not_found(e):
-    """ Custom 404 route. """
-    return render_template("denied.html", e=e), 403
+    """ Custom 403 route. """
+    return render_template("403.html", e=e), 403
 
 @app.route("/")
-def redirect_register():
-    """ Redirect to /register. """
+def show_feedback():
+    """ Display Feedback from all Users. """
 
-    return redirect("/register")
+    feedback = Feedback.query.all()
+
+    return render_template("index.html", feedback=feedback)
 
 @app.route("/register", methods=["GET", "POST"])
 def register():
