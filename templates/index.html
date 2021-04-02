@@ -6,6 +6,12 @@
 
 <h1 class="display-1 text-center">Feedback</h1>
 
+{% if session["username"]%}
+<div class="text-center">
+    <a class="btn btn-primary btn-lg" href="/users/{{session['username']}}">Go to Profile</a>
+</div>
+{% endif %}
+
 <div class="d-flex justify-content-center">
     <div class="row">
         {% for post in feedback %}
